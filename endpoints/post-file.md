@@ -16,6 +16,10 @@ Content-Type: multipart/form-data
   - Format: `dataset__[id]` or table unique ID
   - Example: `dataset__1`, `test_dataset_unique_1`
 
+- `notify` (任意): 通知を送信するか
+  - Type: boolean
+  - Default: true
+
 - `field_name` (必須): アップロードするファイルフィールド
   - Type: file
   - Example: `field__39`
@@ -27,6 +31,7 @@ def singleImgPost(self, table, field_name, file_path):
     files = {field_name: (file_path, fileDataBinary, 'image/png')}
     data = {
         'table': table,
+        'notify': True,
     }
     response = self.post(self.getApiUrl('record'), data=data, headers=self.getHeader(), files=files)
     return response
@@ -45,6 +50,10 @@ Content-Type: multipart/form-data
   - Format: `dataset__[id]` or table unique ID
   - Example: `dataset__1`, `test_dataset_unique_1`
 
+- `notify` (任意): 通知を送信するか
+  - Type: boolean
+  - Default: true
+
 - `field_name[]` (必須): アップロードする複数ファイルフィールド
   - Type: file array
   - Example: `field__39[]`
@@ -57,7 +66,10 @@ def multiImgPost(self, table, field_name, file_paths):
         fileDataBinary = open(file_path, 'rb').read()
         files[f'{field_name}[]'] = (file_path, fileDataBinary, 'image/png')
 
-    data = {'table': table}
+    data = {
+        'table': table,
+        'notify': True
+    }
 
     response = self.post(self.getApiUrl('record'), data=data, headers=self.getHeader(), files=files)
     return response
