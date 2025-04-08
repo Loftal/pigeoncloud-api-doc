@@ -1,33 +1,32 @@
-# PUT /v1/update_record (ファイルアップロード / File Upload)
+# PUT /v1/update_record (ファイルアップロード)
 
-## Description / 説明
+## Description
 既存のレコードを更新し、ファイルをアップロードします。
-Updates existing records with file uploads.
 
-## Single File Upload / 単一ファイルアップロード
+## Single File Upload
 
-### Request / リクエスト
+### Request
 ```
 POST /v1/update_record
 Content-Type: multipart/form-data
 ```
 
-### Parameters / パラメータ
-- `table_id` (必須/required): データセットテーブルID / Dataset table ID
+### Parameters
+- `table_id` (必須): データセットテーブルID
   - Example: `5`
 
-- `data[0][id]` (必須/required): 更新するレコードID / Record ID to update
+- `data[0][id]` (必須): 更新するレコードID
   - Example: `1`
 
-- `notify` (任意/optional): 通知を送信するか / Whether to send notifications
+- `notify` (任意): 通知を送信するか
   - Type: boolean
   - Default: true
 
-- `field_name` (必須/required): アップロードするファイルフィールド / File field to upload
+- `field_name` (必須): アップロードするファイルフィールド
   - Type: file
   - Example: `field__39`
 
-### Example (Python) / 例（Python）
+### Example (Python)
 ```python
 def singleImgPut(self, table_id, field_name, id, file_path):
     #if file not exist return False
@@ -45,33 +44,33 @@ def singleImgPut(self, table_id, field_name, id, file_path):
     return response
 ```
 
-## Multiple Files Upload / 複数ファイルアップロード
+## Multiple Files Upload
 
-### Request / リクエスト
+### Request
 ```
 POST /v1/update_record
 Content-Type: multipart/form-data
 ```
 
-### Parameters / パラメータ
-- `table_id` (必須/required): データセットテーブルID / Dataset table ID
+### Parameters
+- `table_id` (必須): データセットテーブルID
   - Example: `5`
 
-- `data[0][id]` (必須/required): 更新するレコードID / Record ID to update
+- `data[0][id]` (必須): 更新するレコードID
   - Example: `1`
 
-- `notify` (任意/optional): 通知を送信するか / Whether to send notifications
+- `notify` (任意): 通知を送信するか
   - Type: boolean
   - Default: true
 
-- `data[0][field_name][index][order]` (任意/optional): 画像の順序 / Image order
+- `data[0][field_name][index][order]` (任意): 画像の順序
   - Example: `data[0][field__39][0][order]`
 
-- `field_name[0][index]` (必須/required): アップロードする複数ファイルフィールド / Multiple files field to upload
+- `field_name[0][index]` (必須): アップロードする複数ファイルフィールド
   - Type: file array
   - Example: `field__39[0][0]`
 
-### Example (Python) / 例（Python）
+### Example (Python)
 ```python
 def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=False):
     # 現在のレコードの画像データを取得
@@ -141,7 +140,7 @@ def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=Fals
     return response
 ```
 
-## Response / レスポンス
+## Response
 ```json
 {
     "result": "success",
@@ -154,9 +153,9 @@ def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=Fals
 }
 ```
 
-## Error Responses / エラーレスポンス
+## Error Responses
 
-### Invalid Table / 無効なテーブル
+### Invalid Table
 ```json
 {
     "result": "error",
@@ -164,7 +163,7 @@ def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=Fals
 }
 ```
 
-### No Permission / 権限なし
+### No Permission
 ```json
 {
     "result": "error",
@@ -172,7 +171,7 @@ def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=Fals
 }
 ```
 
-### Record Not Found / レコード未検出
+### Record Not Found
 ```json
 {
     "result": "error",
@@ -180,7 +179,7 @@ def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=Fals
 }
 ```
 
-### File Upload Error / ファイルアップロードエラー
+### File Upload Error
 ```json
 {
     "result": "error",
@@ -188,7 +187,7 @@ def multiImgPut(self, table, field_name, id, file_path_a, delete_old_images=Fals
 }
 ```
 
-### Invalid File Type / 無効なファイルタイプ
+### Invalid File Type
 ```json
 {
     "result": "error",

@@ -1,60 +1,55 @@
-# POST /v1/record (ファイルアップロード / File Upload)
+# POST /v1/record (ファイルアップロード)
 
-## Description / 説明
+## Description
 新しいレコードを作成し、ファイルをアップロードします。
-Creates new records with file uploads.
 
-## Single File Upload / 単一ファイルアップロード
+## Single File Upload
 
-### Request / リクエスト
+### Request
 ```
 POST /v1/record
 Content-Type: multipart/form-data
 ```
 
-### Parameters / パラメータ
-- `table` (必須/required): データセットテーブル名 / Dataset table name
+### Parameters
+- `table` (必須): データセットテーブル名
   - Format: `dataset__[id]` or table unique ID
   - Example: `dataset__1`, `test_dataset_unique_1`
 
-- `data[0][field_name]` (任意/optional): フィールド値 / Field value
-  - Example: `data[0][field__39]`
-
-- `field_name` (必須/required): アップロードするファイルフィールド / File field to upload
+- `field_name` (必須): アップロードするファイルフィールド
   - Type: file
   - Example: `field__39`
 
-### Example (Python) / 例（Python）
+### Example (Python)
 ```python
-def singleImgPost(self, table, field_name, file_path, value):
+def singleImgPost(self, table, field_name, file_path):
     fileDataBinary = open(file_path, 'rb').read()
     files = {field_name: (file_path, fileDataBinary, 'image/png')}
     data = {
         'table': table,
-        f'data[0][{field_name}]': value
     }
     response = self.post(self.getApiUrl('record'), data=data, headers=self.getHeader(), files=files)
     return response
 ```
 
-## Multiple Files Upload / 複数ファイルアップロード
+## Multiple Files Upload
 
-### Request / リクエスト
+### Request
 ```
 POST /v1/record
 Content-Type: multipart/form-data
 ```
 
-### Parameters / パラメータ
-- `table` (必須/required): データセットテーブル名 / Dataset table name
+### Parameters
+- `table` (必須): データセットテーブル名
   - Format: `dataset__[id]` or table unique ID
   - Example: `dataset__1`, `test_dataset_unique_1`
 
-- `field_name[]` (必須/required): アップロードする複数ファイルフィールド / Multiple files field to upload
+- `field_name[]` (必須): アップロードする複数ファイルフィールド
   - Type: file array
   - Example: `field__39[]`
 
-### Example (Python) / 例（Python）
+### Example (Python)
 ```python
 def multiImgPost(self, table, field_name, file_paths):
     files = {}
@@ -68,7 +63,7 @@ def multiImgPost(self, table, field_name, file_paths):
     return response
 ```
 
-## Response / レスポンス
+## Response
 ```json
 {
     "result": "success",
@@ -81,9 +76,9 @@ def multiImgPost(self, table, field_name, file_paths):
 }
 ```
 
-## Error Responses / エラーレスポンス
+## Error Responses
 
-### Invalid Table / 無効なテーブル
+### Invalid Table
 ```json
 {
     "result": "error",
@@ -91,7 +86,7 @@ def multiImgPost(self, table, field_name, file_paths):
 }
 ```
 
-### No Permission / 権限なし
+### No Permission
 ```json
 {
     "result": "error",
@@ -99,7 +94,7 @@ def multiImgPost(self, table, field_name, file_paths):
 }
 ```
 
-### File Upload Error / ファイルアップロードエラー
+### File Upload Error
 ```json
 {
     "result": "error",
@@ -107,7 +102,7 @@ def multiImgPost(self, table, field_name, file_paths):
 }
 ```
 
-### Invalid File Type / 無効なファイルタイプ
+### Invalid File Type
 ```json
 {
     "result": "error",
