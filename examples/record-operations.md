@@ -35,7 +35,7 @@ GET /v1/record?table=dataset__6
 次に、取得したfile_info_idを使ってファイルをダウンロードします：
 
 ```http
-GET /v1/file?file_info_id=7&table=dataset__6
+GET /v1/file?file_info_id=7
 ```
 
 レスポンス: ファイルそのものがダウンロードされます（PDFファイルなど）。
