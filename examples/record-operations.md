@@ -1,5 +1,45 @@
 # Record Operation Examples / レコード操作例
 
+## File Operations / ファイル操作
+
+### Getting Files from Records / レコードからファイル取得
+まず、レコードAPIを使ってファイル情報IDを取得します：
+
+```http
+GET /v1/record?table=dataset__6
+```
+
+レスポンス例:
+```json
+{
+  "result": "success",
+  "data": [
+    {
+      "raw_data": {
+        "id": "10",
+        "field__1": "サンプルレコード",
+        "field__2": "7",  // ここがファイルフィールドのfile_info_id
+        "field__3": ["12", "15"]  // 複数ファイルの場合はIDの配列
+      },
+      "view_data": {
+        "id": "10",
+        "field__1": "サンプルレコード",
+        "field__2": "報告書.pdf",  // 表示用のファイル名
+        "field__3": ["画像1.jpg", "画像2.png"]
+      }
+    }
+  ]
+}
+```
+
+次に、取得したfile_info_idを使ってファイルをダウンロードします：
+
+```http
+GET /v1/file?file_info_id=7&table=dataset__6
+```
+
+レスポンス: ファイルそのものがダウンロードされます（PDFファイルなど）。
+
 ## Get Records with Filtering / フィルター付きレコード取得
 
 ### Basic Record Retrieval / 基本的なレコード取得

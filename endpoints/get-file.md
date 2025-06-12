@@ -9,13 +9,15 @@ Downloads a file.
 - `file_info_id`: ファイル情報ID / File information ID
   - Type: integer
   - Example: `file_info_id=123`
+  - 説明: record GET APIで取得されるfile/image項目のraw_dataの値です。レコードのファイル/画像フィールドから取得したIDを指定します。
 
 - `table`: データセットテーブル名 / Dataset table name
   - Format: `dataset__[id]` or table unique ID
   - Example: `dataset__1`, `test_dataset_unique_1`
 
 ## Response / レスポンス
-File content with appropriate Content-Type header.
+ファイルの内容がそのままダウンロードされます。Content-Typeヘッダーは適切なファイルタイプに設定されます。
+The file content is directly downloaded with the appropriate Content-Type header.
 
 ## Error Responses / エラーレスポンス
 
